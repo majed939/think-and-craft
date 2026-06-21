@@ -81,11 +81,12 @@ return (
 bg-amber-900
 text-white
 shadow-xl
-sticky
+fixed
 top-0
+left-0
+w-full
 z-50
 ">
-
 
 <div className="
 max-w-7xl
