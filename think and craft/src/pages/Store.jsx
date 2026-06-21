@@ -1,344 +1,265 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import products from "../data/products";
-import { useCart } from "../context/CartContext";
 import { useLanguage } from "../context/LanguageContext";
+import { useAuth } from "../context/AuthContext";
+import { useCart } from "../context/CartContext";
 
 
-export default function Store() {
+export default function Header() {
 
 
-  const { addToCart } = useCart();
-
-  const { language } = useLanguage();
-
-
-
-  const [search, setSearch] = useState("");
-
-  const [category, setCategory] = useState("all");
+const {
+language,
+changeLanguage
+} = useLanguage();
 
 
+const {
+user,
+logout
+} = useAuth();
 
 
-  const normalize = (text)=>{
+const {
+cartCount
+} = useCart();
 
-    return text
-    .toLowerCase()
-    .replaceAll("أ","ا")
-    .replaceAll("إ","ا")
-    .replaceAll("آ","ا")
-    .replaceAll("ة","ه")
-    .replaceAll("ى","ي")
-    .replaceAll(" ","");
 
-  };
+const [menuOpen,setMenuOpen] = useState(false);
+
+const [logoutModal,setLogoutModal] = useState(false);
 
 
 
+const goTop = () => {
+window.scrollTo(0,0);
+};
 
 
 
-  const filteredProducts = products.filter((product)=>{
+const links = [
 
+{
+path:"/",
+ar:"الرئيسية",
+en:"Home"
+},
 
-    const searchText = normalize(search);
+{
+path:"/store",
+ar:"المتجر",
+en:"Store"
+},
 
+{
+path:"/courses",
+ar:"الدورات",
+en:"Courses"
+},
 
+{
+path:"/community",
+ar:"المجتمع",
+en:"Community"
+},
 
-    const arabicName = normalize(product.nameAr || "");
+{
+path:"/orders",
+ar:"طلباتي",
+en:"Orders"
+}
 
-    const englishName = normalize(product.nameEn || "");
-
-
-
-    const matchSearch =
-
-    arabicName.includes(searchText) ||
-
-    englishName.includes(searchText);
-
-
-
-
-
-    const matchCategory =
-
-    category === "all" ||
-
-    product.category === category;
-
-
-
-    return matchSearch && matchCategory;
-
-
-  });
-
-
-
+];
 
 
 
 return (
 
-<div className="p-10 bg-amber-50 min-h-screen">
+<>
 
 
-
-<h1 className="text-4xl font-bold text-amber-900 mb-8">
-
-{
-language==="ar"
-?"المتجر"
-:"Store"
-}
-
-</h1>
-
-
-
-
-
-<div
-className="
-sticky
-top-24
-bg-white
-z-30
-p-4
-shadow
-rounded-lg
-mb-6
-"
->
-
-
-<input
-
-type="text"
-
-placeholder={
-language==="ar"
-?"ابحث عن منتج..."
-:"Search product..."
-}
-
-value={search}
-
-onChange={(e)=>setSearch(e.target.value)}
-
-className="
-border
-p-3
-rounded-lg
-w-full
-"
-
-/>
-
-
-</div>
-
-
-
-
-
-
-
-<div className="flex gap-3 flex-wrap mb-8">
-
-
-
-{[
-["all","الكل","All"],
-["wood","أخشاب","Wood"],
-["tools","أدوات","Tools"],
-["electric","كهربائيات","Electric"],
-["hardware","قطع تثبيت","Hardware"],
-["finishing","تشطيب","Finishing"],
-["safety","سلامة","Safety"]
-
-].map((item)=>(
-
-
-<button
-
-key={item[0]}
-
-onClick={()=>setCategory(item[0])}
-
-className="
-bg-amber-800
+<header className="
+bg-amber-900
 text-white
-px-4
-py-2
-rounded
+shadow-xl
+sticky
+top-0
+z-50
+">
+
+
+<div className="
+max-w-7xl
+mx-auto
+px-3
+md:px-6
+py-3
+flex
+items-center
+justify-between
+gap-4
+">
+
+
+<Link
+
+to="/"
+
+onClick={goTop}
+
+className="
+text-xl
+md:text-3xl
+font-bold
+whitespace-nowrap
 "
+>
+
+🪵 Think & Craft
+
+</Link>
+
+
+
+
+
+<nav className="
+hidden
+md:flex
+items-center
+gap-5
+whitespace-nowrap
+flex-1
+justify-center
+">
+
+
+{
+links.map((item)=>(
+
+<Link
+
+key={item.path}
+
+to={item.path}
+
+onClick={goTop}
+
+className="hover:text-yellow-400"
 
 >
 
 {
 language==="ar"
-?item[1]
-:item[2]
+?item.ar
+:item.en
+}
+
+</Link>
+
+))
 }
 
 
-</button>
 
 
-))}
+<Link
+to="/favorites"
+className="hover:text-yellow-400"
+>
+
+❤️ {language==="ar"?"المفضلة":"Favorites"}
+
+</Link>
 
 
-
-</div>
-
-
-
-
-
-
-
-<div className="grid md:grid-cols-3 gap-6">
-
-
-
-{
-
-filteredProducts.map((product)=>(
 
 
 
 <Link
 
-key={product.id}
-
-to={`/product/${product.id}`}
+to="/cart"
 
 className="
-border
-rounded-xl
-p-5
-shadow
-hover:shadow-xl
-transition
-bg-white
+relative
+hover:text-yellow-400
 "
 
 >
+
+🛒 {language==="ar"?"السلة":"Cart"}
+
+
+
+{
+cartCount > 0 &&
+
+<span
+
+className="
+absolute
+top-0
+right-0
+translate-x-1/2
+-translate-y-1/2
+bg-red-600
+rounded-full
+w-5
+h-5
+text-xs
+flex
+items-center
+justify-center
+"
+
+>
+
+{cartCount}
+
+</span>
+
+}
+
+
+</Link>
+
+
+
+</nav>
+
+
 
 
 
 <div className="
-h-44
 flex
 items-center
-justify-center
-bg-white
-rounded-xl
-mb-4
+gap-2
+whitespace-nowrap
 ">
-
-
-<img
-
-src={product.image}
-
-alt={
-language==="ar"
-?product.nameAr
-:product.nameEn
-}
-
-className="
-w-full
-h-full
-object-contain
-p-3
-"
-
-/>
-
-
-</div>
-
-
-
-
-
-
-<h2 className="text-xl font-bold text-amber-900">
-
-{
-language==="ar"
-?product.nameAr
-:product.nameEn
-}
-
-</h2>
-
-
-
-
-
-<p className="mt-3">
-
-{
-language==="ar"
-?`السعر: ${product.price} ر.ق`
-:`Price: ${product.price} QAR`
-}
-
-</p>
-
-
-
-
-
-<p className="text-gray-500 mt-2">
-
-{product.category}
-
-</p>
-
-
-
-
 
 
 <button
 
-onClick={(e)=>{
-
-e.preventDefault();
-
-addToCart(product);
-
-}}
+onClick={changeLanguage}
 
 className="
-mt-5
-bg-green-700
-text-white
-px-5
+bg-yellow-500
+text-black
+px-3
 py-2
 rounded-lg
-w-full
+font-bold
 "
 
 >
 
-
-🛒
-
 {
 language==="ar"
-?"أضف إلى السلة"
-:"Add to Cart"
+?"EN"
+:"عربي"
 }
-
 
 </button>
 
@@ -346,23 +267,362 @@ language==="ar"
 
 
 
+
+<div className="hidden md:flex items-center gap-2">
+
+
+{
+user ?
+
+<>
+
+<Link
+
+to="/profile"
+
+onClick={goTop}
+
+className="
+hidden
+lg:flex
+items-center
+gap-2
+bg-white/10
+px-4
+py-2
+rounded-lg
+"
+
+>
+
+👤 {language==="ar"?"حسابي":"My Account"}
+
 </Link>
 
 
-))
+<button
 
+onClick={()=>setLogoutModal(true)}
+
+className="
+bg-red-600
+px-4
+py-2
+rounded-lg
+"
+
+>
+
+{
+language==="ar"
+?"خروج"
+:"Logout"
+}
+
+</button>
+
+
+</>
+
+:
+
+<>
+
+<Link
+
+to="/login"
+
+className="
+bg-white
+text-amber-900
+px-4
+py-2
+rounded-lg
+"
+
+>
+
+{
+language==="ar"
+?"دخول"
+:"Login"
+}
+
+</Link>
+
+
+
+<Link
+
+to="/register"
+
+className="
+bg-yellow-500
+text-black
+px-4
+py-2
+rounded-lg
+"
+
+>
+
+{
+language==="ar"
+?"حساب جديد"
+:"Register"
+}
+
+</Link>
+
+
+</>
+
+}
+
+
+</div>
+
+
+
+
+
+<button
+
+onClick={()=>setMenuOpen(!menuOpen)}
+
+className="
+md:hidden
+text-3xl
+"
+
+>
+
+☰
+
+</button>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+{
+menuOpen &&
+
+<div className="
+md:hidden
+bg-amber-800
+p-5
+space-y-4
+">
+
+
+{
+links.map((item)=>(
+
+<Link
+
+key={item.path}
+
+to={item.path}
+
+onClick={()=>setMenuOpen(false)}
+
+className="block"
+
+>
+
+{
+language==="ar"
+?item.ar
+:item.en
+}
+
+</Link>
+
+))
 
 }
 
 
 
+<Link to="/favorites">
+
+❤️ {language==="ar"?"المفضلة":"Favorites"}
+
+</Link>
+
+
+
+<Link to="/cart">
+
+🛒 {language==="ar"?"السلة":"Cart"}
+
+{
+cartCount>0 &&
+<span className="bg-red-600 rounded-full px-2 ml-2">
+{cartCount}
+</span>
+}
+
+</Link>
+
+
+
+{
+user &&
+
+<button
+
+onClick={()=>setLogoutModal(true)}
+
+className="bg-red-600 px-4 py-2 rounded-lg"
+
+>
+
+{
+language==="ar"
+?"خروج"
+:"Logout"
+}
+
+</button>
+
+}
+
+
+</div>
+
+}
+
+
+</header>
+
+
+
+
+
+
+{
+logoutModal &&
+
+<div className="
+fixed
+inset-0
+bg-black/60
+flex
+items-center
+justify-center
+z-50
+">
+
+
+<div className="
+bg-white
+rounded-2xl
+p-6
+w-96
+text-center
+">
+
+
+<h2 className="text-2xl font-bold text-gray-800 mb-3">
+
+{
+language==="ar"
+?"تسجيل الخروج"
+:"Logout"
+}
+
+</h2>
+
+
+<p className="text-gray-600 mb-6">
+
+{
+language==="ar"
+?"هل أنت متأكد أنك تريد تسجيل الخروج؟"
+:"Are you sure you want to logout?"
+}
+
+</p>
+
+
+
+<div className="flex gap-3">
+
+
+<button
+
+onClick={()=>setLogoutModal(false)}
+
+className="
+flex-1
+bg-gray-300
+py-3
+rounded-lg
+"
+
+>
+
+{
+language==="ar"
+?"إلغاء"
+:"Cancel"
+}
+
+</button>
+
+
+
+<button
+
+onClick={()=>{
+
+logout();
+
+setLogoutModal(false);
+
+}}
+
+className="
+flex-1
+bg-red-600
+text-white
+py-3
+rounded-lg
+"
+
+>
+
+{
+language==="ar"
+?"خروج"
+:"Logout"
+}
+
+</button>
+
+
 </div>
 
 
+</div>
+
 
 </div>
+
+}
+
+
+</>
 
 );
-
 
 }
