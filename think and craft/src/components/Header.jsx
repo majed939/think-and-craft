@@ -177,13 +177,12 @@ className="hover:text-yellow-400"
 
 to="/cart"
 
+onClick={goTop}
+
 className="
 relative
-inline-flex
-items-center
 hover:text-yellow-400
 "
-
 >
 
 🛒 {language==="ar"?"السلة":"Cart"}
