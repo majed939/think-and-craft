@@ -128,8 +128,9 @@ whitespace-nowrap
 text-sm
 md:text-base
 flex-1
-justify-center
-overflow-hidden
+justify-start
+md:justify-center
+overflow-x-auto
 ">
 
 {
