@@ -198,11 +198,12 @@ hover:text-yellow-400
 cartCount > 0 &&
 
 <span
-
 className="
 absolute
--top-3
--right-3
+top-0
+right-0
+translate-x-1/2
+-translate-y-1/2
 bg-red-600
 rounded-full
 text-xs
@@ -212,7 +213,6 @@ flex
 items-center
 justify-center
 "
-
 >
 
 {cartCount}
