@@ -26,8 +26,6 @@ cartCount
 } = useCart();
 
 
-const [menuOpen,setMenuOpen] = useState(false);
-
 const [logoutModal,setLogoutModal] = useState(false);
 
 
@@ -79,16 +77,42 @@ return (
 <>
 
 
-<header className="bg-amber-900 text-white shadow-xl sticky top-0 z-40">
+<header className="
+bg-amber-900
+text-white
+shadow-xl
+sticky
+top-0
+z-40
+">
 
 
-<div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+<div className="
+max-w-7xl
+mx-auto
+px-3
+md:px-6
+py-3
+flex
+items-center
+gap-4
+overflow-x-auto
+">
 
 
 <Link
+
 to="/"
+
 onClick={goTop}
-className="text-2xl md:text-3xl font-bold whitespace-nowrap"
+
+className="
+text-xl
+md:text-3xl
+font-bold
+whitespace-nowrap
+"
+
 >
 
 🪵 Think & Craft
@@ -97,7 +121,14 @@ className="text-2xl md:text-3xl font-bold whitespace-nowrap"
 
 
 
-<nav className="hidden md:flex gap-5 items-center">
+<nav className="
+flex
+items-center
+gap-4
+whitespace-nowrap
+text-sm
+md:text-base
+">
 
 
 {
@@ -111,36 +142,35 @@ to={item.path}
 
 onClick={goTop}
 
-className="hover:text-yellow-400 transition"
+className="hover:text-yellow-400"
 
 >
 
 {
 language==="ar"
-? item.ar
-: item.en
+?item.ar
+:item.en
 }
 
 </Link>
 
 ))
+
 }
 
 
 
 <Link
+
 to="/favorites"
+
 onClick={goTop}
+
 className="hover:text-yellow-400"
+
 >
 
-❤️
-
-{
-language==="ar"
-?"المفضلة"
-:"Favorites"
-}
+❤️ {language==="ar"?"المفضلة":"Favorites"}
 
 </Link>
 
@@ -148,28 +178,30 @@ language==="ar"
 
 
 <Link
+
 to="/cart"
+
 onClick={goTop}
-className="relative hover:text-yellow-400"
+
+className="
+relative
+hover:text-yellow-400
+"
+
 >
 
-🛒
-
-{
-language==="ar"
-?"السلة"
-:"Cart"
-}
+🛒 {language==="ar"?"السلة":"Cart"}
 
 
 {
 cartCount > 0 &&
 
 <span
+
 className="
 absolute
 -top-3
--right-4
+-right-3
 bg-red-600
 rounded-full
 text-xs
@@ -179,6 +211,7 @@ flex
 items-center
 justify-center
 "
+
 >
 
 {cartCount}
@@ -191,16 +224,22 @@ justify-center
 </Link>
 
 
-
 </nav>
-<div className="flex items-center gap-3">
+  <div className="flex items-center gap-2 whitespace-nowrap">
 
 
 <button
 
 onClick={changeLanguage}
 
-className="bg-yellow-500 text-black px-3 py-2 rounded-lg font-bold"
+className="
+bg-yellow-500
+text-black
+px-3
+py-2
+rounded-lg
+font-bold
+"
 
 >
 
@@ -220,23 +259,27 @@ user ?
 
 <>
 
+
 <Link
 
 to="/profile"
 
 onClick={goTop}
 
-className="hidden lg:flex items-center gap-2 bg-white/10 px-4 py-2 rounded-lg"
+className="
+hidden
+lg:flex
+items-center
+gap-2
+bg-white/10
+px-4
+py-2
+rounded-lg
+"
 
 >
 
-👤
-
-{
-language==="ar"
-?"حسابي"
-:"My Account"
-}
+👤 {language==="ar"?"حسابي":"My Account"}
 
 </Link>
 
@@ -246,7 +289,12 @@ language==="ar"
 
 onClick={()=>setLogoutModal(true)}
 
-className="bg-red-600 px-4 py-2 rounded-lg"
+className="
+bg-red-600
+px-4
+py-2
+rounded-lg
+"
 
 >
 
@@ -272,7 +320,13 @@ to="/login"
 
 onClick={goTop}
 
-className="bg-white text-amber-900 px-4 py-2 rounded-lg"
+className="
+bg-white
+text-amber-900
+px-4
+py-2
+rounded-lg
+"
 
 >
 
@@ -292,7 +346,13 @@ to="/register"
 
 onClick={goTop}
 
-className="bg-yellow-500 text-black px-4 py-2 rounded-lg"
+className="
+bg-yellow-500
+text-black
+px-4
+py-2
+rounded-lg
+"
 
 >
 
@@ -304,123 +364,16 @@ language==="ar"
 
 </Link>
 
+
 </>
 
 }
 
 
-
-
-
-<button
-
-onClick={()=>setMenuOpen(!menuOpen)}
-
-className="md:hidden text-3xl"
-
->
-
-☰
-
-</button>
-
-
 </div>
 
 
 </div>
-
-
-
-
-{
-menuOpen &&
-
-<div className="md:hidden bg-amber-800 p-5 space-y-4">
-
-
-{
-links.map((item)=>(
-
-<Link
-
-key={item.path}
-
-to={item.path}
-
-onClick={()=>{
-
-setMenuOpen(false);
-
-goTop();
-
-}}
-
-className="block"
-
->
-
-{
-language==="ar"
-?item.ar
-:item.en
-}
-
-</Link>
-
-))
-
-}
-
-
-
-<Link
-
-to="/favorites"
-
-onClick={()=>{
-
-setMenuOpen(false);
-
-goTop();
-
-}}
-
-className="block"
-
->
-
-❤️ {language==="ar"?"المفضلة":"Favorites"}
-
-</Link>
-
-
-
-<Link
-
-to="/cart"
-
-onClick={()=>{
-
-setMenuOpen(false);
-
-goTop();
-
-}}
-
-className="block"
-
->
-
-🛒 {language==="ar"?"السلة":"Cart"}
-
-</Link>
-
-
-</div>
-
-}
-
 
 
 </header>
@@ -432,13 +385,33 @@ className="block"
 {
 logoutModal &&
 
-<div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+<div className="
+fixed
+inset-0
+bg-black/60
+flex
+items-center
+justify-center
+z-50
+">
 
 
-<div className="bg-white rounded-2xl p-6 w-96 text-center shadow-2xl">
+<div className="
+bg-white
+rounded-2xl
+p-6
+w-96
+text-center
+shadow-2xl
+">
 
 
-<h2 className="text-2xl font-bold text-gray-800 mb-3">
+<h2 className="
+text-2xl
+font-bold
+text-gray-800
+mb-3
+">
 
 {
 language==="ar"
@@ -470,7 +443,12 @@ language==="ar"
 
 onClick={()=>setLogoutModal(false)}
 
-className="flex-1 bg-gray-300 py-3 rounded-lg"
+className="
+flex-1
+bg-gray-300
+py-3
+rounded-lg
+"
 
 >
 
@@ -484,7 +462,6 @@ language==="ar"
 
 
 
-
 <button
 
 onClick={()=>{
@@ -495,7 +472,13 @@ setLogoutModal(false);
 
 }}
 
-className="flex-1 bg-red-600 text-white py-3 rounded-lg"
+className="
+flex-1
+bg-red-600
+text-white
+py-3
+rounded-lg
+"
 
 >
 
@@ -518,7 +501,6 @@ language==="ar"
 </div>
 
 }
-
 
 
 </>
