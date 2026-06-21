@@ -129,7 +129,7 @@ whitespace-nowrap
 text-sm
 md:text-base
 max-w-full
-overflow-x-auto
+overflow-visible
 ">
 
 {
@@ -186,6 +186,7 @@ relative
 inline-flex
 items-center
 hover:text-yellow-400
+overflow-visible
 "
 >
 
@@ -203,6 +204,7 @@ right-0
 translate-x-1/2
 -translate-y-1/2
 bg-red-600
+text-white
 rounded-full
 text-xs
 w-5
@@ -210,11 +212,11 @@ h-5
 flex
 items-center
 justify-center
+font-bold
+z-50
 "
 >
-
 {cartCount}
-
 </span>
 
 }
