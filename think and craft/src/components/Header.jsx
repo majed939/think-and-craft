@@ -94,11 +94,10 @@ px-3
 md:px-6
 py-3
 flex
+justify-between
 items-center
 gap-4
-overflow-x-auto
 ">
-
 
 <Link
 
@@ -124,12 +123,14 @@ whitespace-nowrap
 <nav className="
 flex
 items-center
-gap-4
+gap-5
 whitespace-nowrap
 text-sm
 md:text-base
+flex-1
+justify-center
+overflow-hidden
 ">
-
 
 {
 links.map((item)=>(
@@ -225,7 +226,7 @@ justify-center
 
 
 </nav>
-  <div className="flex items-center gap-2 whitespace-nowrap">
+<div className="flex items-center gap-2 whitespace-nowrap shrink-0">
 
 
 <button
