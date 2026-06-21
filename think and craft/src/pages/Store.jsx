@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+
 import products from "../data/products";
 import { useCart } from "../context/CartContext";
 import { useLanguage } from "../context/LanguageContext";
@@ -16,36 +17,7 @@ export default function Store() {
 
   const [search, setSearch] = useState("");
 
-  const [showSearch, setShowSearch] = useState(true);
-
   const [category, setCategory] = useState("all");
-
-  const [scrolled, setScrolled] = useState(false);
-
-
-
-
-  useEffect(()=>{
-
-    const handleScroll = ()=>{
-
-      setScrolled(window.scrollY > 300);
-
-    };
-
-
-    window.addEventListener("scroll", handleScroll);
-
-
-    return ()=>{
-
-      window.removeEventListener("scroll", handleScroll);
-
-    };
-
-
-  },[]);
-
 
 
 
@@ -109,21 +81,18 @@ export default function Store() {
 
 
 
-
 return (
 
 <div className="p-10 bg-amber-50 min-h-screen">
 
 
 
-
-
 <h1 className="text-4xl font-bold text-amber-900 mb-8">
 
 {
-language === "ar"
-? "المتجر"
-: "Store"
+language==="ar"
+?"المتجر"
+:"Store"
 }
 
 </h1>
@@ -132,12 +101,18 @@ language === "ar"
 
 
 
-
-
-{
-showSearch &&
-
-<div className="sticky top-20 bg-white z-30 p-4 shadow rounded-lg mb-6">
+<div
+className="
+sticky
+top-24
+bg-white
+z-30
+p-4
+shadow
+rounded-lg
+mb-6
+"
+>
 
 
 <input
@@ -145,23 +120,26 @@ showSearch &&
 type="text"
 
 placeholder={
-language === "ar"
-? "ابحث عن منتج..."
-: "Search product..."
+language==="ar"
+?"ابحث عن منتج..."
+:"Search product..."
 }
 
 value={search}
 
 onChange={(e)=>setSearch(e.target.value)}
 
-className="border p-3 rounded-lg w-full"
+className="
+border
+p-3
+rounded-lg
+w-full
+"
 
 />
 
 
 </div>
-
-}
 
 
 
@@ -181,6 +159,7 @@ className="border p-3 rounded-lg w-full"
 ["hardware","قطع تثبيت","Hardware"],
 ["finishing","تشطيب","Finishing"],
 ["safety","سلامة","Safety"]
+
 ].map((item)=>(
 
 
@@ -202,8 +181,8 @@ rounded
 
 {
 language==="ar"
-? item[1]
-: item[2]
+?item[1]
+:item[2]
 }
 
 
@@ -215,9 +194,6 @@ language==="ar"
 
 
 </div>
-
-
-
 
 
 
@@ -251,12 +227,7 @@ transition
 bg-white
 "
 
-
-
 >
-
-
-
 
 
 
@@ -298,9 +269,6 @@ p-3
 
 
 
-
-
-
 <h2 className="text-xl font-bold text-amber-900">
 
 {
@@ -315,19 +283,15 @@ language==="ar"
 
 
 
-
-
 <p className="mt-3">
 
 {
 language==="ar"
-? `السعر: ${product.price} ر.ق`
-: `Price: ${product.price} QAR`
+?`السعر: ${product.price} ر.ق`
+:`Price: ${product.price} QAR`
 }
 
 </p>
-
-
 
 
 
@@ -338,8 +302,6 @@ language==="ar"
 {product.category}
 
 </p>
-
-
 
 
 
@@ -384,7 +346,6 @@ language==="ar"
 
 
 
-
 </Link>
 
 
@@ -399,63 +360,7 @@ language==="ar"
 
 
 
-
-
-
-
-
-
-{
-
-scrolled &&
-
-
-<button
-
-onClick={()=>setShowSearch(!showSearch)}
-
-className="
-fixed
-bottom-5
-right-5
-bg-amber-800
-text-white
-px-5
-py-3
-rounded-full
-shadow-lg
-z-50
-"
-
->
-
-{
-showSearch
-
-?
-
-language==="ar"
-?"إخفاء البحث"
-:"Hide Search"
-
-:
-
-language==="ar"
-?"إظهار البحث"
-:"Show Search"
-
-}
-
-</button>
-
-
-}
-
-
-
-
 </div>
-
 
 );
 
