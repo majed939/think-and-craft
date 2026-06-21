@@ -83,7 +83,7 @@ text-white
 shadow-xl
 sticky
 top-0
-z-40
+z-50
 ">
 
 
