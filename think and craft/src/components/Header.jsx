@@ -30,11 +30,11 @@ window.scrollTo(0,0);
 
 const links = [
 
-{path:"/",ar:"الرئيسية",en:"Home"},
-{path:"/store",ar:"المتجر",en:"Store"},
-{path:"/courses",ar:"الدورات",en:"Courses"},
-{path:"/community",ar:"المجتمع",en:"Community"},
-{path:"/orders",ar:"طلباتي",en:"Orders"}
+{path:"/", ar:"الرئيسية", en:"Home"},
+{path:"/store", ar:"المتجر", en:"Store"},
+{path:"/courses", ar:"الدورات", en:"Courses"},
+{path:"/community", ar:"المجتمع", en:"Community"},
+{path:"/orders", ar:"طلباتي", en:"Orders"}
 
 ];
 
@@ -58,11 +58,13 @@ z-50
 <div className="
 max-w-7xl
 mx-auto
-px-4
+px-3
+md:px-6
 py-3
 flex
-items-center
 justify-between
+items-center
+gap-4
 ">
 
 
@@ -81,6 +83,7 @@ whitespace-nowrap
 
 
 
+
 {/* كمبيوتر */}
 
 <nav className="
@@ -88,6 +91,11 @@ hidden
 md:flex
 items-center
 gap-5
+whitespace-nowrap
+text-sm
+md:text-base
+flex-1
+justify-center
 ">
 
 
@@ -113,25 +121,30 @@ language==="ar"
 }
 
 
+
 <Link to="/favorites">
 ❤️ {language==="ar"?"المفضلة":"Favorites"}
 </Link>
 
 
-<Link 
+
+<Link
 to="/cart"
 className="relative"
 >
 
 🛒 {language==="ar"?"السلة":"Cart"}
 
+
 {
-cartCount > 0 &&
+cartCount>0 &&
 
 <span className="
 absolute
--top-3
--right-3
+top-0
+right-0
+translate-x-1/2
+-translate-y-1/2
 bg-red-600
 rounded-full
 w-5
@@ -148,6 +161,7 @@ justify-center
 
 }
 
+
 </Link>
 
 
@@ -156,19 +170,26 @@ justify-center
 
 
 
-<div className="flex items-center gap-2">
+
+<div className="
+flex
+items-center
+gap-2
+">
 
 
 <button
+
 onClick={changeLanguage}
+
 className="
 bg-yellow-500
 text-black
 px-3
 py-2
 rounded-lg
-"
->
+font-bold
+">
 
 {
 language==="ar"
@@ -181,6 +202,61 @@ language==="ar"
 
 
 
+{
+user ?
+
+<button
+
+onClick={()=>setLogoutModal(true)}
+
+className="
+hidden
+md:block
+bg-red-600
+px-4
+py-2
+rounded-lg
+">
+
+{
+language==="ar"
+?"خروج"
+:"Logout"
+}
+
+</button>
+
+:
+
+<Link
+
+to="/login"
+
+className="
+hidden
+md:block
+bg-white
+text-amber-900
+px-4
+py-2
+rounded-lg
+">
+
+{
+language==="ar"
+?"دخول"
+:"Login"
+}
+
+</Link>
+
+}
+
+
+
+
+{/* زر الجوال */}
+
 <button
 
 onClick={()=>setMenuOpen(!menuOpen)}
@@ -188,25 +264,25 @@ onClick={()=>setMenuOpen(!menuOpen)}
 className="
 md:hidden
 text-3xl
-"
-
->
+">
 
 ☰
 
 </button>
 
 
-</div>
-
-
 
 </div>
 
 
 
+</div>
 
-{/* الجوال */}
+
+
+
+
+{/* قائمة الجوال */}
 
 {
 
@@ -229,12 +305,7 @@ key={item.path}
 
 to={item.path}
 
-onClick={()=>{
-
-setMenuOpen(false);
-goTop();
-
-}}
+onClick={()=>setMenuOpen(false)}
 
 className="block"
 
@@ -255,7 +326,9 @@ language==="ar"
 
 
 <Link to="/favorites">
+
 ❤️ {language==="ar"?"المفضلة":"Favorites"}
+
 </Link>
 
 
@@ -266,17 +339,26 @@ language==="ar"
 
 {
 cartCount>0 &&
-<span className="ml-2 bg-red-600 px-2 rounded-full">
+<span className="
+bg-red-600
+rounded-full
+px-2
+ml-2
+">
+
 {cartCount}
+
 </span>
 }
 
 </Link>
 
 
+
 </div>
 
 }
+
 
 
 </header>
