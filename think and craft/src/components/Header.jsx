@@ -27,7 +27,6 @@ cartCount
 
 
 const [menuOpen,setMenuOpen] = useState(false);
-
 const [logoutModal,setLogoutModal] = useState(false);
 
 
@@ -83,11 +82,12 @@ return (
 bg-amber-900
 text-white
 shadow-xl
-sticky
+fixed
 top-0
+left-0
+w-full
 z-50
 ">
-
 
 <div className="
 max-w-7xl
@@ -114,13 +114,12 @@ md:text-3xl
 font-bold
 whitespace-nowrap
 "
+
 >
 
 🪵 Think & Craft
 
 </Link>
-
-
 
 
 
@@ -163,7 +162,6 @@ language==="ar"
 
 
 
-
 <Link
 to="/favorites"
 className="hover:text-yellow-400"
@@ -175,21 +173,20 @@ className="hover:text-yellow-400"
 
 
 
-
-
 <Link
 
 to="/cart"
 
 className="
 relative
+inline-flex
+items-center
 hover:text-yellow-400
 "
 
 >
 
 🛒 {language==="ar"?"السلة":"Cart"}
-
 
 
 {
@@ -199,10 +196,8 @@ cartCount > 0 &&
 
 className="
 absolute
-top-0
-right-0
-translate-x-1/2
--translate-y-1/2
+-top-2
+-right-2
 bg-red-600
 rounded-full
 w-5
@@ -211,6 +206,7 @@ text-xs
 flex
 items-center
 justify-center
+font-bold
 "
 
 >
@@ -227,9 +223,6 @@ justify-center
 
 
 </nav>
-
-
-
 
 
 <div className="
@@ -262,14 +255,7 @@ language==="ar"
 }
 
 </button>
-
-
-
-
-
-
-<div className="hidden md:flex items-center gap-2">
-
+<div className="flex items-center gap-2">
 
 {
 user ?
@@ -283,8 +269,7 @@ to="/profile"
 onClick={goTop}
 
 className="
-hidden
-lg:flex
+flex
 items-center
 gap-2
 bg-white/10
@@ -298,6 +283,7 @@ rounded-lg
 👤 {language==="ar"?"حسابي":"My Account"}
 
 </Link>
+
 
 
 <button
@@ -323,6 +309,7 @@ language==="ar"
 
 
 </>
+
 
 :
 
@@ -384,8 +371,6 @@ language==="ar"
 
 
 
-
-
 <button
 
 onClick={()=>setMenuOpen(!menuOpen)}
@@ -402,13 +387,10 @@ text-3xl
 </button>
 
 
-
 </div>
 
 
 </div>
-
-
 
 
 
@@ -465,10 +447,19 @@ language==="ar"
 🛒 {language==="ar"?"السلة":"Cart"}
 
 {
-cartCount>0 &&
-<span className="bg-red-600 rounded-full px-2 ml-2">
+cartCount > 0 &&
+
+<span className="
+bg-red-600
+rounded-full
+px-2
+ml-2
+">
+
 {cartCount}
+
 </span>
+
 }
 
 </Link>
@@ -482,7 +473,12 @@ user &&
 
 onClick={()=>setLogoutModal(true)}
 
-className="bg-red-600 px-4 py-2 rounded-lg"
+className="
+bg-red-600
+px-4
+py-2
+rounded-lg
+"
 
 >
 
@@ -503,9 +499,6 @@ language==="ar"
 
 
 </header>
-
-
-
 
 
 
@@ -532,7 +525,12 @@ text-center
 ">
 
 
-<h2 className="text-2xl font-bold text-gray-800 mb-3">
+<h2 className="
+text-2xl
+font-bold
+text-gray-800
+mb-3
+">
 
 {
 language==="ar"
@@ -541,6 +539,7 @@ language==="ar"
 }
 
 </h2>
+
 
 
 <p className="text-gray-600 mb-6">
