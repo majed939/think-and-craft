@@ -9,11 +9,21 @@ import { useCart } from "../context/CartContext";
 export default function Header() {
 
 
-const { language, changeLanguage } = useLanguage();
+const {
+language,
+changeLanguage
+} = useLanguage();
 
-const { user, logout } = useAuth();
 
-const { cartCount } = useCart();
+const {
+user,
+logout
+} = useAuth();
+
+
+const {
+cartCount
+} = useCart();
 
 
 const [menuOpen,setMenuOpen] = useState(false);
@@ -30,11 +40,35 @@ window.scrollTo(0,0);
 
 const links = [
 
-{path:"/", ar:"الرئيسية", en:"Home"},
-{path:"/store", ar:"المتجر", en:"Store"},
-{path:"/courses", ar:"الدورات", en:"Courses"},
-{path:"/community", ar:"المجتمع", en:"Community"},
-{path:"/orders", ar:"طلباتي", en:"Orders"}
+{
+path:"/",
+ar:"الرئيسية",
+en:"Home"
+},
+
+{
+path:"/store",
+ar:"المتجر",
+en:"Store"
+},
+
+{
+path:"/courses",
+ar:"الدورات",
+en:"Courses"
+},
+
+{
+path:"/community",
+ar:"المجتمع",
+en:"Community"
+},
+
+{
+path:"/orders",
+ar:"طلباتي",
+en:"Orders"
+}
 
 ];
 
@@ -62,15 +96,18 @@ px-3
 md:px-6
 py-3
 flex
-justify-between
 items-center
+justify-between
 gap-4
 ">
 
 
 <Link
+
 to="/"
+
 onClick={goTop}
+
 className="
 text-xl
 md:text-3xl
@@ -78,13 +115,14 @@ font-bold
 whitespace-nowrap
 "
 >
+
 🪵 Think & Craft
+
 </Link>
 
 
 
 
-{/* كمبيوتر */}
 
 <nav className="
 hidden
@@ -92,21 +130,24 @@ md:flex
 items-center
 gap-5
 whitespace-nowrap
-text-sm
-md:text-base
 flex-1
 justify-center
 ">
 
 
 {
-links.map(item=>(
+links.map((item)=>(
 
 <Link
+
 key={item.path}
+
 to={item.path}
+
 onClick={goTop}
+
 className="hover:text-yellow-400"
+
 >
 
 {
@@ -122,24 +163,41 @@ language==="ar"
 
 
 
-<Link to="/favorites">
+
+<Link
+to="/favorites"
+className="hover:text-yellow-400"
+>
+
 ❤️ {language==="ar"?"المفضلة":"Favorites"}
+
 </Link>
 
 
 
+
+
 <Link
+
 to="/cart"
-className="relative"
+
+className="
+relative
+hover:text-yellow-400
+"
+
 >
 
 🛒 {language==="ar"?"السلة":"Cart"}
 
 
-{
-cartCount>0 &&
 
-<span className="
+{
+cartCount > 0 &&
+
+<span
+
+className="
 absolute
 top-0
 right-0
@@ -153,7 +211,9 @@ text-xs
 flex
 items-center
 justify-center
-">
+"
+
+>
 
 {cartCount}
 
@@ -163,6 +223,7 @@ justify-center
 
 
 </Link>
+
 
 
 </nav>
@@ -175,6 +236,7 @@ justify-center
 flex
 items-center
 gap-2
+whitespace-nowrap
 ">
 
 
@@ -189,7 +251,9 @@ px-3
 py-2
 rounded-lg
 font-bold
-">
+"
+
+>
 
 {
 language==="ar"
@@ -202,21 +266,52 @@ language==="ar"
 
 
 
+
+
+<div className="hidden md:flex items-center gap-2">
+
+
 {
 user ?
+
+<>
+
+<Link
+
+to="/profile"
+
+onClick={goTop}
+
+className="
+hidden
+lg:flex
+items-center
+gap-2
+bg-white/10
+px-4
+py-2
+rounded-lg
+"
+
+>
+
+👤 {language==="ar"?"حسابي":"My Account"}
+
+</Link>
+
 
 <button
 
 onClick={()=>setLogoutModal(true)}
 
 className="
-hidden
-md:block
 bg-red-600
 px-4
 py-2
 rounded-lg
-">
+"
+
+>
 
 {
 language==="ar"
@@ -226,21 +321,26 @@ language==="ar"
 
 </button>
 
+
+</>
+
 :
+
+<>
 
 <Link
 
 to="/login"
 
 className="
-hidden
-md:block
 bg-white
 text-amber-900
 px-4
 py-2
 rounded-lg
-">
+"
+
+>
 
 {
 language==="ar"
@@ -250,12 +350,41 @@ language==="ar"
 
 </Link>
 
+
+
+<Link
+
+to="/register"
+
+className="
+bg-yellow-500
+text-black
+px-4
+py-2
+rounded-lg
+"
+
+>
+
+{
+language==="ar"
+?"حساب جديد"
+:"Register"
+}
+
+</Link>
+
+
+</>
+
 }
 
 
+</div>
 
 
-{/* زر الجوال */}
+
+
 
 <button
 
@@ -264,7 +393,9 @@ onClick={()=>setMenuOpen(!menuOpen)}
 className="
 md:hidden
 text-3xl
-">
+"
+
+>
 
 ☰
 
@@ -275,17 +406,13 @@ text-3xl
 </div>
 
 
-
 </div>
 
 
 
 
 
-{/* قائمة الجوال */}
-
 {
-
 menuOpen &&
 
 <div className="
@@ -297,7 +424,7 @@ space-y-4
 
 
 {
-links.map(item=>(
+links.map((item)=>(
 
 <Link
 
@@ -339,15 +466,8 @@ language==="ar"
 
 {
 cartCount>0 &&
-<span className="
-bg-red-600
-rounded-full
-px-2
-ml-2
-">
-
+<span className="bg-red-600 rounded-full px-2 ml-2">
 {cartCount}
-
 </span>
 }
 
@@ -355,14 +475,150 @@ ml-2
 
 
 
+{
+user &&
+
+<button
+
+onClick={()=>setLogoutModal(true)}
+
+className="bg-red-600 px-4 py-2 rounded-lg"
+
+>
+
+{
+language==="ar"
+?"خروج"
+:"Logout"
+}
+
+</button>
+
+}
+
+
 </div>
 
 }
 
 
-
 </header>
 
+
+
+
+
+
+{
+logoutModal &&
+
+<div className="
+fixed
+inset-0
+bg-black/60
+flex
+items-center
+justify-center
+z-50
+">
+
+
+<div className="
+bg-white
+rounded-2xl
+p-6
+w-96
+text-center
+">
+
+
+<h2 className="text-2xl font-bold text-gray-800 mb-3">
+
+{
+language==="ar"
+?"تسجيل الخروج"
+:"Logout"
+}
+
+</h2>
+
+
+<p className="text-gray-600 mb-6">
+
+{
+language==="ar"
+?"هل أنت متأكد أنك تريد تسجيل الخروج؟"
+:"Are you sure you want to logout?"
+}
+
+</p>
+
+
+
+<div className="flex gap-3">
+
+
+<button
+
+onClick={()=>setLogoutModal(false)}
+
+className="
+flex-1
+bg-gray-300
+py-3
+rounded-lg
+"
+
+>
+
+{
+language==="ar"
+?"إلغاء"
+:"Cancel"
+}
+
+</button>
+
+
+
+<button
+
+onClick={()=>{
+
+logout();
+
+setLogoutModal(false);
+
+}}
+
+className="
+flex-1
+bg-red-600
+text-white
+py-3
+rounded-lg
+"
+
+>
+
+{
+language==="ar"
+?"خروج"
+:"Logout"
+}
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+}
 
 
 </>
