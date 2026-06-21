@@ -127,9 +127,7 @@ gap-5
 whitespace-nowrap
 text-sm
 md:text-base
-flex-1
-justify-start
-md:justify-center
+max-w-full
 overflow-x-auto
 ">
 
