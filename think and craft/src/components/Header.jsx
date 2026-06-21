@@ -433,7 +433,10 @@ language==="ar"
 
 
 
-<Link to="/favorites">
+<Link
+to="/favorites"
+onClick={()=>setMenuOpen(false)}
+>
 
 ❤️ {language==="ar"?"المفضلة":"Favorites"}
 
@@ -441,7 +444,13 @@ language==="ar"
 
 
 
-<Link to="/cart">
+<Link
+to="/cart"
+onClick={()=>{
+setMenuOpen(false);
+goTop();
+}}
+>
 
 🛒 {language==="ar"?"السلة":"Cart"}
 
